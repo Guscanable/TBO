@@ -33,39 +33,6 @@ $judul = [];
 $deskripsi = [];
 $kata = [];
 
-//quintuple nfa
-$t = str_replace(" ", "", $var);
-$initialState = 0;
-$totalState = strlen($t);
-$finalState = [];
-for ($i = 0; $i < count($search); $i++) {
-    array_push($finalState, strlen($search[$i]));
-}
-
-foreach ($result as $s) {
-    $kalimat = [];
-    $isi = $s['isi'];
-    $data = []; //mengetahui variabel index ke berapa
-    for ($i = 0; $i < count($search); $i++) {
-        $final = searching($isi, $search[$i]);
-        if ($final['state'] == strlen($search[$i])) {
-            array_push($data, $i);
-            array_push($kalimat, $final['kalimat']);
-        }
-    }
-    if (!empty($data)) {
-        $total++;
-        array_push($dokumen, $s['id']);
-        array_push($judul, $s['judul']);
-        array_push($deskripsi, $kalimat[count($kalimat) - 1]);
-        $tmp = "";
-        for ($i = 0; $i < count($data); $i++) {
-            $tmp = $tmp . $search[$data[$i]] . ", ";
-        }
-        array_push($kata, $tmp);
-    }
-}
-
 function searching($text, $search)
 {
     $c = 0;
@@ -104,8 +71,40 @@ function searching($text, $search)
     $s['state'] = $c;
     return $s;
 }
-?>
 
+//quintuple nfa
+$t = str_replace(" ", "", $var);
+$initialState = 0;
+$totalState = strlen($t);
+$finalState = [];
+for ($i = 0; $i < count($search); $i++) {
+    array_push($finalState, strlen($search[$i]));
+}
+
+foreach ($result as $s) {
+    $kalimat = [];
+    $isi = $s['isi'];
+    $data = []; //mengetahui variabel index ke berapa
+    for ($i = 0; $i < count($search); $i++) {
+        $final = searching($isi, $search[$i]);
+        if ($final['state'] == strlen($search[$i])) {
+            array_push($data, $i);
+            array_push($kalimat, $final['kalimat']);
+        }
+    }
+    if (!empty($data)) {
+        $total++;
+        array_push($dokumen, $s['id']);
+        array_push($judul, $s['judul']);
+        array_push($deskripsi, $kalimat[count($kalimat) - 1]);
+        $tmp = "";
+        for ($i = 0; $i < count($data); $i++) {
+            $tmp = $tmp . $search[$data[$i]] . ", ";
+        }
+        array_push($kata, $tmp);
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
