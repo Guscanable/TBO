@@ -1,0 +1,75 @@
+/* Simpan dalam format .css */
+@media (min-width: 992px) {
+
+    body,
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar {
+        height: 80px !important;
+    }
+
+    .navbar-brand {
+        font-size: 25px !important;
+    }
+
+    .nav-item {
+        padding-right: 30px;
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        display: block;
+        border-bottom: 2px solid #000;
+        width: 20px;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: -10px;
+    }
+
+    .jumbotron {
+        height: 250px;
+        width: 100%;
+    }
+
+    .display-4 {
+        font-weight: 900 !important;
+        /* padding-top: 10px; */
+        /* color: lightskyblue; */
+    }
+}
+
+.navbar-brand {
+    font-size: 30px !important;
+    font-weight: 400 !important;
+}
+
+.jumbotron {
+    height: 250px;
+    width: 100%;
+}
+
+.display-4 {
+    font-size: 30pt !important;
+}
+
+.footer {
+    width: 100%;
+    height: 60px;
+    margin-top: 50px;
+    /* padding: 15px; */
+}
+
+.footer p {
+    font-size: 18px;
+    text-align: center;
+    font-weight: lighter;
+    padding: 0;
+    margin: 0;
+}
+
+.search-wrapper {
+    height: 100% !important;
+    width: 100% !important;
+}
