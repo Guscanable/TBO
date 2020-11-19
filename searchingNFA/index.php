@@ -49,8 +49,8 @@
     <div class="jumbotron jumbotron-fluid search-wrapper bg-dark">
         <div class="container d-flex justify-content-center" data-aos="fade-down" data-aos-duration="2000">
             <form class=" form-inline" action="search.php" method="get">
-                <input class="form-control mr-2 rounded-pill" style="width: 80% !important;" type="text" name="search" placeholder="Cari Dokumen" required>
-                <input type="hidden" name="bagilaman" value="50">
+                <input class="form-control mr-2 mb-2 rounded-pill" style="width: 80% !important;" type="text" name="search" placeholder="Cari Dokumen" required>
+                <input class="form-control mr-2 rounded-pill" style="width: 70% !important;" type="text" name="bagilaman" placeholder="Jumlah Dokumen" required>
                 <button class="btn btn-warning my-2 my-sm-0 rounded-pill" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
