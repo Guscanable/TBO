@@ -1,6 +1,8 @@
 <!-- Simpan dalam format .php -->
 <?php
-require("koneksi.php");
+// koneksi ke server
+$db = new mysqli("localhost", "root", "", "db_dokumen");
+
 $id = $_GET['id'];
 $query = "SELECT judul, isi FROM dokumen WHERE id=" . $id;
 $result = $db->query($query);
@@ -34,9 +36,9 @@ $result = $result->fetch_assoc();
     <title>Detail</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <!-- Start Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent border-bottom" data-aos="fade-right" data-aos-duration="2000">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" data-aos="fade-right" data-aos-duration="2000">
         <div class="container">
             <a class="navbar-brand" href="#"><i class="fas fa-search"></i>&nbsp;searching NFA</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,8 +60,8 @@ $result = $result->fetch_assoc();
 
     <!-- Start Jumbotron -->
     <div class="container" style="margin-top: 10px;" data-aos="fade-up" data-aos-duration="2000">
-        <div class="card border-info mb-3">
-            <div class="card-header bg-lavender border-info">
+        <div class="card border-dark mb-3">
+            <div class="card-header bg-lavender border-dark">
                 <h5><?= $result['judul'] ?></h5>
             </div>
             <div class="card-body">
