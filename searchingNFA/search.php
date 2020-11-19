@@ -1,111 +1,4 @@
 <!-- Simpan dalam format .php -->
-<?php
-//koneksi database
-require('koneksi.php');
-
-$var = trim($_GET['search'], " ");
-
-$search = $var;
-$search = explode(" ", $search);
-$loop = count($search);
-$index = 0;
-for ($i = 0; $i < $loop; $i++) {
-    if ($search[$i] == '') unset($search[$i]);
-    else {
-        $bantu = $search[$i];
-        unset($search[$i]);
-        $search[$index] = $bantu;
-        $index++;
-    }
-}
-
-$bagilaman = $_GET['bagilaman'];
-
-//query koneksi ke database mengambil id
-$query = "SELECT * FROM dokumen WHERE id BETWEEN 1 AND " . $bagilaman;
-$result = $db->query($query);
-$result = $result->fetch_all(MYSQLI_ASSOC);
-
-//variabel atribut dokumen
-$total = 0;
-$dokumen = [];
-$judul = [];
-$deskripsi = [];
-$kata = [];
-
-function searching($text, $search)
-{
-    $c = 0;
-    for ($i = 0; $i < strlen($text); $i++) {
-        if (strtolower($text[$i]) == strtolower($search[$c])) {
-            $c++; //next state
-        } else {
-            $c = 0; //kembali ke startstate
-        }
-        if ($c == strlen($search)) {
-            if ($text[$i - $c] != " " || $text[$i + 1] != " ") {
-                $c = 0; //kembali ke startstate
-                continue;
-            };
-            //mengambil kata 
-            $kiri = $i - $c;
-            if ($kiri < 0) $kiri = 0;
-            $startkiri = $kiri - 25;
-            if ($startkiri < 0) {
-                $startkiri = 0;
-                $katakiri = substr($text, $startkiri, $kiri);
-            } else {
-                $tmp = 25;
-                //mencari kata dari kiri - ketemu spasi
-                while ($text[$startkiri] != " ") {
-                    $startkiri--;
-                    $tmp++;
-                }
-                $katakiri = substr($text, $startkiri, $tmp);
-            }
-            $katakanan = substr($text, $i + 1, 150);
-            $s['kalimat'] = $katakiri . " " . "<b>" . $search . "</b>" . $katakanan . "...";
-            break;
-        }
-    }
-    $s['state'] = $c;
-    return $s;
-}
-
-//quintuple nfa
-$t = str_replace(" ", "", $var);
-$initialState = 0;
-$totalState = strlen($t);
-$finalState = [];
-for ($i = 0; $i < count($search); $i++) {
-    array_push($finalState, strlen($search[$i]));
-}
-
-foreach ($result as $s) {
-    $kalimat = [];
-    $isi = $s['isi'];
-    $data = []; //mengetahui variabel index ke berapa
-    for ($i = 0; $i < count($search); $i++) {
-        $final = searching($isi, $search[$i]);
-        if ($final['state'] == strlen($search[$i])) {
-            array_push($data, $i);
-            array_push($kalimat, $final['kalimat']);
-        }
-    }
-    if (!empty($data)) {
-        $total++;
-        array_push($dokumen, $s['id']);
-        array_push($judul, $s['judul']);
-        array_push($deskripsi, $kalimat[count($kalimat) - 1]);
-        $tmp = "";
-        for ($i = 0; $i < count($data); $i++) {
-            $tmp = $tmp . $search[$data[$i]] . ", ";
-        }
-        array_push($kata, $tmp);
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,6 +26,13 @@ foreach ($result as $s) {
     <title>Searching</title>
 </head>
 
+<?php
+//koneksi database
+require('koneksi.php');
+?>
+
+<!-- start body -->
+
 <body>
     <!-- Start Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent border-bottom" data-aos="fade-right" data-aos-duration="2000">
@@ -151,13 +51,12 @@ foreach ($result as $s) {
         </div>
     </nav>
     <!-- End Navbar -->
-
     <!-- Start Jumbotron -->
     <div class="jumbotron jumbotron-fluid search-wrapper bg-dark">
         <div class="container d-flex justify-content-center" data-aos="fade-down" data-aos-duration="2000">
             <form class=" form-inline" action="search.php" method="get">
-                <input class="form-control mr-2 rounded-pill" style="width: 80% !important;" type="text" name="search" placeholder="Cari Dokumen" aria-label="Search">
-                <input type="hidden" class="bagilaman" value="<?= $bagilaman ?>" name="bagilaman">
+                <input class="form-control mr-2 mb-2 rounded-pill" style="width: 80% !important;" type="text" name="search" placeholder="Cari Dokumen" aria-label="Search">
+                <input class="form-control mr-2 rounded-pill" style="width: 70% !important;" type="text" name="bagilaman" placeholder="Jumlah Dokumen" required>
                 <button class="btn btn-warning my-2 my-sm-0 rounded-pill" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -165,10 +64,8 @@ foreach ($result as $s) {
     <!-- End Jumbotron -->
 
     <div class="container" style="margin-top: 10px;" data-aos="fade-up" data-aos-duration="2000">
-
         <div class="card border-dark mt-3" style="max-width: 20rem;">
             <button href="#" style="border-radius: 0px !important;" class="btn btn-warning rounded"><i class="fab fa-quora"></i>&nbsp;Quintuple</button>
-
             <div class="card-header bg-transparent border-dark">Input :
                 <?php for ($i = 0; $i < strlen($t); $i++) : ?>
                     <?= $t[$i] ?>
@@ -258,5 +155,6 @@ foreach ($result as $s) {
         AOS.init();
     </script>
 </body>
+<!-- end body -->
 
 </html>
