@@ -38,7 +38,7 @@ $result = $result->fetch_assoc();
 
 <body class="bg-dark">
     <!-- Start Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" data-aos="fade-right" data-aos-duration="2000">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div class="container">
             <a class="navbar-brand" href="#"><i class="fas fa-search"></i>&nbsp;searching NFA</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
