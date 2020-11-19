@@ -1,4 +1,13 @@
 <!-- Simpan dalam format .php -->
+<?php
+// koneksi ke server
+$db = new mysqli("localhost", "root", "", "db_dokumen");
+$id = $_GET['id'];
+$query = "SELECT isi_keyword FROM keyword WHERE id=" . $id;
+$result = $db->query($query);
+$result = $result->fetch_assoc();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,26 +57,23 @@
     </nav>
     <!-- End Navbar -->
 
-    <div class="jumbotron jumbotron-fluid search-wrapper bg-dark">
-        <h1 class="display-4 text-center text-white" data-aos="fade-down" data-aos-duration="2000">Inputkan Keyword</h1>
+    <!-- Start Jumbotron -->
+    <div class=" container-fluid jumbotron jumbotron-fluid search-wrapper bg-dark">
+        <div class="text-center" style="margin-top: 10px;" data-aos="fade-up" data-aos-duration="2000">
+            <h5 class="text-white mr-3">Keyword Dokumen : <?= $result['isi_keyword'] ?></h5>
+        </div>
+        <div class="d-flex justify-content-center mt-3" data-aos="fade-up" data-aos-duration="2000">
+            <form class="form-inline" action="">
+                <input class="form-control mr-2 rounded" style="width: 60% !important;" type="text" name="keyword" placeholder="Update Keyword" required>
+                <a href="" class="btn btn-warning"><i class="far fa-thumbs-up"></i>&nbsp;Submit</a>
+            </form>
+        </div>
     </div>
-
-    <!-- Start Form -->
-    <div class="container mb-5" data-aos="fade-up" data-aos-duration="2000">
-        <form action="#" id="keyword">
-            <input type="hidden" name="submit">
-            <div class="form-group">
-                <input type="keyword" class="form-control" name="keyword" id="keyword" placeholder="Masukkan keyword" autocomplete="off">
-                <button type="submit" name="submit" id="btn-update" class="btn btn-success btn-md mt-3 rounded">Submit</button>
-            </div>
-
-        </form>
-    </div>
-    <!-- End Form -->
+    <!-- End Jumbotron -->
 
     <!-- Start Footer -->
     <div class="footer">
-        <p class="text-secondary">&copy; 2020 - All Rights Reserved by Kelompok 2 TBO Team</p>
+        <p class="text-secondary">&copy; 2020 - All Rights Reserved by Kelompok 2 TBO</p>
     </div>
     <!-- End Footer -->
 
