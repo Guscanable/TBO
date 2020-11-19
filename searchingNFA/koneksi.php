@@ -34,6 +34,7 @@ $dokumen = [];
 $judul = [];
 $deskripsi = [];
 $kata = [];
+$keyword = [];
 
 function searching($text, $search)
 {
@@ -65,7 +66,7 @@ function searching($text, $search)
                 }
                 $katakiri = substr($text, $startkiri, $tmp);
             }
-            $katakanan = substr($text, $i + 1, 150);
+            $katakanan = substr($text, $i + 1, 200);
             $s['kalimat'] = $katakiri . " " . "<b>" . $search . "</b>" . $katakanan . "...";
             break;
         }
