@@ -115,7 +115,7 @@ require('koneksi.php');
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted">Dokumen <?= $dokumen[$i] ?>.</h6>
                     <p class="card-text"><?= $deskripsi[$i] ?></p>
-                    <a href="keyword.php?" class="badge badge-warning p-2"><i class="fas fa-key"></i>&nbsp;Input Keyword</a>
+                    <a href="keyword.php?id=<?= $dokumen[$i] ?>" class="badge badge-warning p-2"><i class="fas fa-key"></i>&nbsp;Keyword</a>
                     <a href="detail.php?id=<?= $dokumen[$i] ?>" class="badge badge-info p-2"><i class="fas fa-info-circle"></i>&nbsp;Detail</a>
                 </div>
             </div>
@@ -142,7 +142,7 @@ require('koneksi.php');
 
     <!-- Start Footer -->
     <div class="footer">
-        <p class="text-secondary">&copy; 2020 - All Rights Reserved by Kelompok 2 TBO Team</p>
+        <p class="text-secondary">&copy; 2020 - All Rights Reserved by Kelompok 2 TBO</p>
     </div>
     <!-- End Footer -->
 
